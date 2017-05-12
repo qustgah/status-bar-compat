@@ -97,6 +97,7 @@ public class StatusBarUtil {
                 if (drawable instanceof ColorDrawable){
                     int color = ((ColorDrawable)drawable).getColor();
                     setStatusBarColor(activity,color);
+                    return;
                 }else {
                     getHeaderColor(activity,childView);
                 }
@@ -106,6 +107,7 @@ public class StatusBarUtil {
             if (drawable instanceof ColorDrawable){
                 int color = ((ColorDrawable)drawable).getColor();
                 setStatusBarColor(activity,color);
+                return;
             }
         }
     }
