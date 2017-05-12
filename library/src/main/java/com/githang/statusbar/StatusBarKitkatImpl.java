@@ -39,7 +39,7 @@ class StatusBarKitkatImpl implements IStatusBar {
             decorViewGroup.addView(statusBarView);
         }
         statusBarView.setBackgroundColor(color);
-        StatusBarCompat.setFitsSystemWindows(window, true);
+        StatusBarUtil.setFitsSystemWindows(window, true);
     }
 
     private static int getStatusBarHeight(Context context) {

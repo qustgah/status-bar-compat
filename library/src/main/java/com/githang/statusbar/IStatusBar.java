@@ -1,5 +1,7 @@
 package com.githang.statusbar;
 
+import android.app.Activity;
+import android.view.View;
 import android.view.Window;
 
 /**

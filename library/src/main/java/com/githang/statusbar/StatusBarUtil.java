@@ -3,6 +3,8 @@ package com.githang.statusbar;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Environment;
 import android.view.View;
@@ -23,7 +25,7 @@ import java.util.Properties;
  * @since 0.1
  */
 
-public class StatusBarCompat {
+public class StatusBarUtil {
 
     static final IStatusBar IMPL;
 
@@ -70,6 +72,42 @@ public class StatusBarCompat {
     public static void setStatusBarColor(Activity activity, int color) {
         boolean isLightColor = toGrey(color) > 225;
         setStatusBarColor(activity, color, isLightColor);
+    }
+
+    /**
+     * 使用限制： 显示的为布局中第一个有backgroud的控件的颜色
+     * 并且 设置的为colordrawable
+     * 其他条件下使用 setStatusBarColor（）;
+     *                 或者自定义
+     * 
+     * @param activity
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static void enableStatusBar(Activity activity){
+        ViewGroup viewGroup = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+        getHeaderColor(activity, viewGroup);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    static void getHeaderColor(Activity activity,View view){
+        if (view instanceof ViewGroup){
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View childView = ((ViewGroup) view).getChildAt(i);
+                Drawable drawable = childView.getBackground();
+                if (drawable instanceof ColorDrawable){
+                    int color = ((ColorDrawable)drawable).getColor();
+                    setStatusBarColor(activity,color);
+                }else {
+                    getHeaderColor(activity,childView);
+                }
+            }
+        }else {
+            Drawable drawable = view.getBackground();
+            if (drawable instanceof ColorDrawable){
+                int color = ((ColorDrawable)drawable).getColor();
+                setStatusBarColor(activity,color);
+            }
+        }
     }
 
     /**

@@ -11,7 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:background="@color/colorPrimary"/>
     <com.larswerkman.holocolorpicker.ColorPicker
         android:id="@+id/picker"
         android:layout_width="wrap_content"
